@@ -1,0 +1,39 @@
+<div class="container">
+      <h1>Mis Rutinas de Gym 🏋️‍♂️</h1>
+
+      <!-- Crear nueva Rutina -->
+      <div class="create-card">
+        <h3>Crear Nueva Rutina</h3>
+        <input type="text" [(ngModel)]="nombre" placeholder="Nombre (ej: Fuerza / Hipertrofia)" />
+        <input type="text" [(ngModel)]="descripcion" placeholder="Descripción breve" />
+        
+        <p>Seleccionar días:</p>
+        <div class="days-selector">
+          @for (dia of diasDisponibles; track dia) {
+            <label>
+              <input type="checkbox" [checked]="diasSeleccionados.includes(dia)" (change)="toggleDia(dia)" />
+              {{ dia }}
+            </label>
+          }
+        </div>
+
+        <button (click)="crearRutina()" [disabled]="!nombre.trim()">+ Crear Rutina</button>
+      </div>
+
+      <!-- Listado de Rutinas (Carpetas) -->
+      <div class="routines-grid">
+        @for (rutina of storageService.rutinas(); track rutina.id) {
+          <div class="folder-card">
+            <div class="card-content">
+              <h2>📁 {{ rutina.nombre }}</h2>
+              <p>{{ rutina.descripcion }}</p>
+              <small>{{ rutina.semanas[0]?.dias?.length || 0 }} días asignados</small>
+            </div>
+            <div class="actions">
+              <a [routerLink]="['/rutina', rutina.id]" class="btn-open">Abrir</a>
+              <button (click)="storageService.eliminarRutina(rutina.id)" class="btn-del">Eliminar</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>

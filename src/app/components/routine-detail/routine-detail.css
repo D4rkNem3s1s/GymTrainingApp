@@ -1,0 +1,54 @@
+.detail-container { max-width: 1000px; margin: 0 auto; padding: 1rem; }
+.back-link { display: inline-block; margin-bottom: 1rem; color: #2563eb; text-decoration: none; }
+
+/* Barra de pestañas estilo Chrome */
+.tabs-bar { display: flex; align-items: center; border-bottom: 2px solid #e2e8f0; gap: 0.5rem; margin-bottom: 1.5rem; background: #f1f5f9; padding: 0.5rem 0.5rem 0 0.5rem; border-radius: 8px 8px 0 0; }
+.tabs-list { display: flex; gap: 0.25rem; overflow-x: auto; }
+.tab-btn { padding: 0.6rem 1.2rem; border: 1px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0; background: #e2e8f0; cursor: pointer; font-weight: 600; }
+.tab-btn.active { background: #ffffff; border-color: #cbd5e1; color: #2563eb; }
+.btn-add-tab { background: #10b981; color: white; border: none; padding: 0.5rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+/* Días y Ejercicios */
+.days-container { display: flex; flex-direction: column; gap: 1.5rem; }
+.day-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 1rem; }
+.add-exercise-inline { display: flex; gap: 0.5rem; margin-bottom: 1rem; max-width: 400px; }
+.add-exercise-inline input { flex: 1; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; }
+
+/* Filas de Inputs por Ejercicio */
+.exercise-rows { display: flex; flex-direction: column; gap: 0.75rem; }
+.exercise-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; background: #f8fafc; padding: 0.75rem; border-radius: 6px; border: 1px solid #e2e8f0; }
+.ej-name { font-weight: bold; min-width: 150px; color: #1e293b; }
+.input-group { display: flex; align-items: center; gap: 0.25rem; font-size: 0.85rem; }
+.input-group input { padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px; width: 70px; }
+.input-group.flex-grow { flex: 1; min-width: 180px; }
+.input-group.flex-grow input { width: 100%; }
+.btn-del { background: #ef4444; color: white; border: none; padding: 0.35rem 0.6rem; border-radius: 4px; cursor: pointer; }
+
+.textarea-notas {
+  width: 100%;
+  min-height: 42px;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.4;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.textarea-notas:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* 📱 Ajuste cómodo para la pantalla del celu */
+@media (max-width: 600px) {
+  .textarea-notas {
+    font-size: 16px; /* Evita zoom automático en móviles */
+    min-height: 48px;
+    padding: 10px 12px;
+  }
+}

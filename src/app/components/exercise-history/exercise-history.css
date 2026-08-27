@@ -1,0 +1,7 @@
+.history-container { margin-top: 1rem; }
+.history-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.history-card { border: 1px solid #e2e8f0; padding: 0.75rem; border-radius: 8px; background: #f8fafc; }
+.card-header { display: flex; justify-content: space-between; font-weight: bold; }
+.peso-tag { color: #2563eb; }
+.notas { font-size: 0.9rem; color: #475569; margin-top: 0.25rem; }
+.empty-msg { color: #94a3b8; }

@@ -1,0 +1,25 @@
+<div class="history-container">
+  <h3>Historial de Progreso</h3>
+  @if (!historial || historial.length === 0) {
+    <p class="empty-msg">No hay registros de entrenamiento aún.</p>
+  } @else {
+    <div class="history-list">
+      @for (registro of historial; track registro.id) {
+        <div class="history-card">
+          <div class="card-header">
+            <!-- Funciona al haber importado DatePipe -->
+            <span class="fecha">{{ registro.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
+            <span class="peso-tag">{{ registro.pesoKg }} kg</span>
+          </div>
+          <div class="card-body">
+            <!-- Corregida la propiedad a registro.repeticiones -->
+            <p><strong>Series:</strong> {{ registro.series }} | <strong>Reps:</strong> {{ registro.repeticiones }}</p>
+            @if (registro.notas) {
+              <p class="notas">💡 <em>{{ registro.notas }}</em></p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
