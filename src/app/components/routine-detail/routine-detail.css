@@ -1,28 +1,221 @@
-.detail-container { max-width: 1000px; margin: 0 auto; padding: 1rem; }
-.back-link { display: inline-block; margin-bottom: 1rem; color: #2563eb; text-decoration: none; }
+.detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: opacity 0.2s ease;
+}
+
+.back-link:hover {
+  opacity: 0.85;
+}
+
+.detail-container h2 {
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.desc {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
 
 /* Barra de pestañas estilo Chrome */
-.tabs-bar { display: flex; align-items: center; border-bottom: 2px solid #e2e8f0; gap: 0.5rem; margin-bottom: 1.5rem; background: #f1f5f9; padding: 0.5rem 0.5rem 0 0.5rem; border-radius: 8px 8px 0 0; }
-.tabs-list { display: flex; gap: 0.25rem; overflow-x: auto; }
-.tab-btn { padding: 0.6rem 1.2rem; border: 1px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0; background: #e2e8f0; cursor: pointer; font-weight: 600; }
-.tab-btn.active { background: #ffffff; border-color: #cbd5e1; color: #2563eb; }
-.btn-add-tab { background: #10b981; color: white; border: none; padding: 0.5rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.tabs-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--border-color);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-subtle);
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border-radius: 10px 10px 0 0;
+}
+
+.tabs-list {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.tab-btn.active {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--accent-primary);
+}
+
+.btn-add-tab {
+  background: var(--accent-success);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
 
 /* Días y Ejercicios */
-.days-container { display: flex; flex-direction: column; gap: 1.5rem; }
-.day-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 1rem; }
-.add-exercise-inline { display: flex; gap: 0.5rem; margin-bottom: 1rem; max-width: 400px; }
-.add-exercise-inline input { flex: 1; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; }
+.days-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.day-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+}
+
+.day-card h3 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.add-exercise-inline {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  max-width: 450px;
+}
+
+.add-exercise-inline input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.add-exercise-inline input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.btn-add-ex {
+  background: var(--accent-primary);
+  color: var(--accent-text);
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
 
 /* Filas de Inputs por Ejercicio */
-.exercise-rows { display: flex; flex-direction: column; gap: 0.75rem; }
-.exercise-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; background: #f8fafc; padding: 0.75rem; border-radius: 6px; border: 1px solid #e2e8f0; }
-.ej-name { font-weight: bold; min-width: 150px; color: #1e293b; }
-.input-group { display: flex; align-items: center; gap: 0.25rem; font-size: 0.85rem; }
-.input-group input { padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px; width: 70px; }
-.input-group.flex-grow { flex: 1; min-width: 180px; }
-.input-group.flex-grow input { width: 100%; }
-.btn-del { background: #ef4444; color: white; border: none; padding: 0.35rem 0.6rem; border-radius: 4px; cursor: pointer; }
+.exercise-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.exercise-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-subtle);
+  padding: 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.ej-name {
+  font-weight: 600;
+  min-width: 150px;
+  color: var(--text-primary);
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.input-group label {
+  font-weight: 500;
+}
+
+.input-group input {
+  padding: 0.4rem 0.6rem;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  border-radius: 6px;
+  width: 75px;
+  font-size: 0.9rem;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.input-group.flex-grow {
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-group.flex-grow input {
+  width: 100%;
+}
+
+.btn-del {
+  background: var(--accent-danger);
+  color: #ffffff;
+  border: none;
+  padding: 0.4rem 0.65rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .textarea-notas {
   width: 100%;
@@ -33,21 +226,28 @@
   font-family: inherit;
   font-size: 14px;
   padding: 8px 10px;
+  background: var(--input-bg);
+  color: var(--text-primary);
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border);
   box-sizing: border-box;
   transition: border-color 0.2s ease;
 }
 
 .textarea-notas:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: var(--accent-primary);
 }
 
-/* 📱 Ajuste cómodo para la pantalla del celu */
+.not-found {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
 @media (max-width: 600px) {
   .textarea-notas {
-    font-size: 16px; /* Evita zoom automático en móviles */
+    font-size: 16px;
     min-height: 48px;
     padding: 10px 12px;
   }

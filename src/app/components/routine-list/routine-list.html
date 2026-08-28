@@ -1,39 +1,46 @@
 <div class="container">
-      <h1>Mis Rutinas de Gym 🏋️‍♂️</h1>
+  <div class="create-card">
+    <h3>Crear Nueva Rutina</h3>
+    <input type="text" [(ngModel)]="nombre" placeholder="Nombre (ej: Fuerza / Hipertrofia)" />
+    <input type="text" [(ngModel)]="descripcion" placeholder="Descripción breve" />
 
-      <!-- Crear nueva Rutina -->
-      <div class="create-card">
-        <h3>Crear Nueva Rutina</h3>
-        <input type="text" [(ngModel)]="nombre" placeholder="Nombre (ej: Fuerza / Hipertrofia)" />
-        <input type="text" [(ngModel)]="descripcion" placeholder="Descripción breve" />
-        
-        <p>Seleccionar días:</p>
-        <div class="days-selector">
-          @for (dia of diasDisponibles; track dia) {
-            <label>
-              <input type="checkbox" [checked]="diasSeleccionados.includes(dia)" (change)="toggleDia(dia)" />
-              {{ dia }}
-            </label>
+    <p class="selector-label">Seleccionar días:</p>
+    <div class="days-selector">
+      @for (dia of diasDisponibles; track dia) {
+      <label class="day-chip">
+        <input type="checkbox" [checked]="diasSeleccionados.includes(dia)" (change)="toggleDia(dia)" />
+        <span>{{ dia }}</span>
+      </label>
+      }
+    </div>
+
+    <button (click)="crearRutina()" [disabled]="!nombre.trim()" class="btn-create">
+      + Crear Rutina
+    </button>
+  </div>
+
+  <div class="routines-grid">
+    @for (rutina of storageService.rutinas(); track rutina.id) {
+    <div class="folder-card">
+      <div class="card-content">
+        <h2><i class="fa-solid fa-folder folder-icon"></i> {{ rutina.nombre }}</h2>
+        <p>{{ rutina.descripcion }}</p>
+        <small class="meta-info">
+          @if (rutina.fechaCreacion) {
+          <span>{{ rutina.fechaCreacion | date:'dd/MM/yyyy' }}</span> •
           }
-        </div>
-
-        <button (click)="crearRutina()" [disabled]="!nombre.trim()">+ Crear Rutina</button>
+          <span>{{ rutina.semanas[0]?.dias?.length || 0 }} días asignados</span>
+        </small>
       </div>
-
-      <!-- Listado de Rutinas (Carpetas) -->
-      <div class="routines-grid">
-        @for (rutina of storageService.rutinas(); track rutina.id) {
-          <div class="folder-card">
-            <div class="card-content">
-              <h2>📁 {{ rutina.nombre }}</h2>
-              <p>{{ rutina.descripcion }}</p>
-              <small>{{ rutina.semanas[0]?.dias?.length || 0 }} días asignados</small>
-            </div>
-            <div class="actions">
-              <a [routerLink]="['/rutina', rutina.id]" class="btn-open">Abrir</a>
-              <button (click)="storageService.eliminarRutina(rutina.id)" class="btn-del">Eliminar</button>
-            </div>
-          </div>
-        }
+      <div class="actions">
+        <a [routerLink]="['/rutina', rutina.id]" class="btn-open">
+          <i class="fa-solid fa-folder-open"></i> Abrir
+        </a>
+        <button (click)="storageService.eliminarRutina(rutina.id)" class="btn-del">
+          <i class="fa-solid fa-trash-can"></i> Eliminar
+        </button>
       </div>
     </div>
+    }
+  </div>
+</div>

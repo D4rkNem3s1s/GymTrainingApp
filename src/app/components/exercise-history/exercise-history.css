@@ -1,7 +1,74 @@
-.history-container { margin-top: 1rem; }
-.history-list { display: flex; flex-direction: column; gap: 0.75rem; }
-.history-card { border: 1px solid #e2e8f0; padding: 0.75rem; border-radius: 8px; background: #f8fafc; }
-.card-header { display: flex; justify-content: space-between; font-weight: bold; }
-.peso-tag { color: #2563eb; }
-.notas { font-size: 0.9rem; color: #475569; margin-top: 0.25rem; }
-.empty-msg { color: #94a3b8; }
+.history-container {
+  margin-top: 1.5rem;
+}
+
+.history-container h3 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.history-card {
+  border: 1px solid var(--border-color);
+  padding: 0.85rem;
+  border-radius: 8px;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.fecha {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.peso-tag {
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.card-body p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.notas {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.icon-note {
+  color: #f59e0b;
+}
+
+.empty-msg {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
