@@ -1,13 +1,14 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { RoutineStorage } from '../../services/routine-storage';
 import { SemanaEntrenamiento, RegistroEjercicio } from '../../models/workout.model';
 
 @Component({
   selector: 'app-routine-detail',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, DatePipe],
   templateUrl: './routine-detail.html',
   styleUrl: './routine-detail.css'
 })
@@ -30,7 +31,7 @@ export class RoutineDetail {
   get semanaActual(): SemanaEntrenamiento | undefined {
     const r = this.rutina();
     if (!r || !r.semanas || r.semanas.length === 0) return undefined;
-    
+
     if (this.semanaSeleccionadaId()) {
       return r.semanas.find(s => s.id === this.semanaSeleccionadaId());
     }
@@ -42,39 +43,40 @@ export class RoutineDetail {
   }
 
   agregarSemana() {
-  const r = this.rutina();
-  if (!r || r.semanas.length === 0) return;
+    const r = this.rutina();
+    if (!r || r.semanas.length === 0) return;
 
-  const ultimaSemana = r.semanas[r.semanas.length - 1];
-  const nuevaSemanaNumero = r.semanas.length + 1;
+    const ultimaSemana = r.semanas[r.semanas.length - 1];
+    const nuevaSemanaNumero = r.semanas.length + 1;
 
-  // Mantenemos los ejercicios de la semana anterior pero reseteando sus campos
-  const nuevosDias = ultimaSemana.dias.map(diaAnterior => ({
-    id: crypto.randomUUID(),
-    nombreDia: diaAnterior.nombreDia,
-    ejercicios: diaAnterior.ejercicios.map(ej => ({
+    // Mantenemos los ejercicios de la semana anterior pero reseteando sus campos
+    const nuevosDias = ultimaSemana.dias.map(diaAnterior => ({
       id: crypto.randomUUID(),
-      nombre: ej.nombre,   // Mantiene el nombre del ejercicio
-      series: ej.series,   // Mantiene la cantidad de series base
-      repeticiones: 0,     // Listo para completar la nueva marca
-      pesoKg: '',          // Vacío para la nueva semana
-      notas: ''            // Vacío para las nuevas observaciones
-    }))
-  }));
+      nombreDia: diaAnterior.nombreDia,
+      ejercicios: diaAnterior.ejercicios.map(ej => ({
+        id: crypto.randomUUID(),
+        nombre: ej.nombre,
+        fecha: new Date().toISOString(),
+        series: ej.series,
+        repeticiones: 0,
+        pesoKg: '',
+        notas: ''
+      }))
+    }));
 
-  const nuevaSemana: SemanaEntrenamiento = {
-    id: crypto.randomUUID(),
-    numeroSemana: nuevaSemanaNumero,
-    dias: nuevosDias
-  };
+    const nuevaSemana: SemanaEntrenamiento = {
+      id: crypto.randomUUID(),
+      numeroSemana: nuevaSemanaNumero,
+      dias: nuevosDias
+    };
 
-  this.storageService.actualizarRutina({
-    ...r,
-    semanas: [...r.semanas, nuevaSemana]
-  });
+    this.storageService.actualizarRutina({
+      ...r,
+      semanas: [...r.semanas, nuevaSemana]
+    });
 
-  this.semanaSeleccionadaId.set(nuevaSemana.id);
-}
+    this.semanaSeleccionadaId.set(nuevaSemana.id);
+  }
 
   agregarEjercicio(diaId: string) {
     const nombre = this.nuevoEjercicioNombre[diaId]?.trim();
@@ -87,6 +89,7 @@ export class RoutineDetail {
     const nuevoEjercicio: RegistroEjercicio = {
       id: crypto.randomUUID(),
       nombre: nombre,
+      fecha: new Date().toISOString(),
       series: 4,
       repeticiones: 10,
       pesoKg: '0',
@@ -123,7 +126,7 @@ export class RoutineDetail {
             ...d,
             ejercicios: d.ejercicios.map(ej => {
               if (ej.id !== ejercicioId) return ej;
-              return { ...ej, [campo]: valor };
+              return { ...ej, [campo]: valor, fecha: new Date().toISOString() };
             })
           };
         })
@@ -156,8 +159,8 @@ export class RoutineDetail {
   }
 
   autoAjustarAltura(event: Event) {
-  const textarea = event.target as HTMLTextAreaElement;
-  textarea.style.height = 'auto';
-  textarea.style.height = `${textarea.scrollHeight}px`;
-}
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }
 }

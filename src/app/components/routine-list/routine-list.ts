@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { RoutineStorage } from '../../services/routine-storage';
 import { DiaSemana, SemanaEntrenamiento } from '../../models/workout.model';
 
 @Component({
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, DatePipe],
   selector: 'app-routine-list',
   styleUrl: './routine-list.css',
   templateUrl: './routine-list.html',

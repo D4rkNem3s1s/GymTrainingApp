@@ -1,99 +1,90 @@
 @if (rutina()) {
-  <div class="detail-container">
-    <a routerLink="/" class="back-link">← Volver a mis Rutinas</a>
-    <h2>{{ rutina()?.nombre }}</h2>
-    <p class="desc">{{ rutina()?.descripcion }}</p>
+<div class="detail-container">
+  <a routerLink="/" class="back-link">
+    <i class="fa-solid fa-arrow-left"></i> Volver a mis Rutinas
+  </a>
+  <h2>{{ rutina()?.nombre }}</h2>
+  <p class="desc">
+    {{ rutina()?.descripcion }}
+    @if (rutina()?.fechaCreacion) {
+    <small class="meta-date">{{ rutina()?.fechaCreacion | date:'dd/MM/yyyy' }}</small>
+    }
+  </p>
 
-    <!-- Fila de Pestañas de Semanas (Estilo Chrome) -->
-    <div class="tabs-bar">
-      <div class="tabs-list">
-        @for (semana of rutina()?.semanas; track semana.id) {
-          <button 
-            class="tab-btn" 
-            [class.active]="semana.id === semanaActual?.id"
-            (click)="seleccionarSemana(semana.id)">
-            📅 Semana {{ semana.numeroSemana }}
-          </button>
-        }
-      </div>
-      <button (click)="agregarSemana()" class="btn-add-tab">+ Nueva Semana</button>
+  <!-- Fila de Pestañas de Semanas -->
+  <div class="tabs-bar">
+    <div class="tabs-list">
+      @for (semana of rutina()?.semanas; track semana.id) {
+      <button class="tab-btn" [class.active]="semana.id === semanaActual?.id" (click)="seleccionarSemana(semana.id)">
+        <i class="fa-solid fa-calendar-week"></i> Semana {{ semana.numeroSemana }}
+      </button>
+      }
     </div>
+    <button (click)="agregarSemana()" class="btn-add-tab">
+      <i class="fa-solid fa-plus"></i> Nueva Semana
+    </button>
+  </div>
 
-    <!-- Contenido de los Días de la Semana seleccionada -->
-    @if (semanaActual) {
-      <div class="days-container">
-        @for (dia of semanaActual.dias; track dia.id) {
-          <div class="day-card">
-            <h3>{{ dia.nombreDia }}</h3>
+  <!-- Contenido de los Días de la Semana seleccionada -->
+  @if (semanaActual) {
+  <div class="days-container">
+    @for (dia of semanaActual.dias; track dia.id) {
+    <div class="day-card">
+      <h3><i class="fa-solid fa-calendar-day"></i> {{ dia.nombreDia }}</h3>
 
-            <!-- Agregar nuevo ejercicio al día -->
-            <div class="add-exercise-inline">
-              <input 
-                type="text" 
-                [(ngModel)]="nuevoEjercicioNombre[dia.id]" 
-                placeholder="Nombre del ejercicio..."
-              />
-              <button (click)="agregarEjercicio(dia.id)">+ Agregar</button>
-            </div>
+      <!-- Agregar nuevo ejercicio al día -->
+      <div class="add-exercise-inline">
+        <input type="text" [(ngModel)]="nuevoEjercicioNombre[dia.id]" placeholder="Nombre del ejercicio..." />
+        <button (click)="agregarEjercicio(dia.id)" class="btn-add-ex">
+          <i class="fa-solid fa-plus"></i> Agregar
+        </button>
+      </div>
 
-            <!-- Listado de Ejercicios con Inputs en Fila -->
-            <div class="exercise-rows">
-              @for (ej of dia.ejercicios; track ej.id) {
-                <div class="exercise-row">
-                  <span class="ej-name">{{ ej.nombre }}</span>
+      <!-- Listado de Ejercicios con Inputs en Fila -->
+      <div class="exercise-rows">
+        @for (ej of dia.ejercicios; track ej.id) {
+        <div class="exercise-row">
+          <span class="ej-name">{{ ej.nombre }}</span>
 
-                  <div class="input-group">
-                    <label>Series:</label>
-                    <input 
-                      type="number" 
-                      min="1" 
-                      [ngModel]="ej.series" 
-                      (ngModelChange)="onCampoChange(dia.id, ej.id, 'series', $event)"
-                    />
-                  </div>
-
-                  <div class="input-group">
-                    <label>Reps:</label>
-                    <input 
-                      type="number" 
-                      min="1" 
-                      [ngModel]="ej.repeticiones" 
-                      (ngModelChange)="onCampoChange(dia.id, ej.id, 'repeticiones', $event)"
-                    />
-                  </div>
-
-                  <div class="input-group">
-                    <label>Peso (kg):</label>
-                    <input 
-                      type="text" 
-                      placeholder="ej: 102.5" 
-                      [ngModel]="ej.pesoKg" 
-                      (ngModelChange)="onCampoChange(dia.id, ej.id, 'pesoKg', $event)"
-                    />
-                  </div>
-
-                  <div class="input-group flex-grow">
-                    <label>Notas:</label>
-                    <textarea
-                      class="input-control textarea-notas"
-                      rows="1"
-                      placeholder="Observaciones..."
-                      [ngModel]="ej.notas"
-                      (ngModelChange)="onCampoChange(dia.id, ej.id, 'notas', $event)"
-                      (input)="autoAjustarAltura($event)"
-                      (focus)="autoAjustarAltura($event)"
-                    ></textarea>
-                  </div>
-
-                  <button (click)="eliminarEjercicio(dia.id, ej.id)" class="btn-del">✕</button>
-                </div>
-              }
-            </div>
+          <div class="input-group">
+            <label>Series:</label>
+            <input type="number" min="1" [ngModel]="ej.series"
+              (ngModelChange)="onCampoChange(dia.id, ej.id, 'series', $event)" />
           </div>
+
+          <div class="input-group">
+            <label>Reps:</label>
+            <input type="number" min="1" [ngModel]="ej.repeticiones"
+              (ngModelChange)="onCampoChange(dia.id, ej.id, 'repeticiones', $event)" />
+          </div>
+
+          <div class="input-group">
+            <label>Peso (kg):</label>
+            <input type="text" placeholder="ej: 102.5" [ngModel]="ej.pesoKg"
+              (ngModelChange)="onCampoChange(dia.id, ej.id, 'pesoKg', $event)" />
+          </div>
+
+          <div class="input-group flex-grow">
+            <label>Notas:</label>
+            <textarea class="input-control textarea-notas" rows="1" placeholder="Observaciones..." [ngModel]="ej.notas"
+              (ngModelChange)="onCampoChange(dia.id, ej.id, 'notas', $event)" (input)="autoAjustarAltura($event)"
+              (focus)="autoAjustarAltura($event)"></textarea>
+          </div>
+
+          <button (click)="eliminarEjercicio(dia.id, ej.id)" class="btn-del" title="Eliminar ejercicio">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
         }
       </div>
+    </div>
     }
   </div>
+  }
+</div>
 } @else {
-  <p>Rutina no encontrada.</p>
+<div class="detail-container">
+  <p class="not-found"><i class="fa-solid fa-triangle-exclamation"></i> Rutina no encontrada.</p>
+  <a routerLink="/" class="back-link"><i class="fa-solid fa-arrow-left"></i> Volver a inicio</a>
+</div>
 }
